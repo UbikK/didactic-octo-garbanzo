@@ -1,7 +1,6 @@
-type Controller = {
-    readonly key: string;
+interface Controller {
     execute: Function;
-};
+}
 
 export default Controller;
 

@@ -1,10 +1,10 @@
-import Controller from "../types/Controller";
+import AbstractController from "./Controller.abstract";
 
-class Logger implements Controller {
-    key = "controller/logger";
-    execute() {
+class Logger extends AbstractController {
+    static key = "controllers/logger";
+    execute = function () {
         console.info("coucou");
-    }
+    };
 }
 
 export default Logger;
