@@ -11,6 +11,13 @@ class BaseRouter {
         return this._router;
     }
 
+    /**
+     * Allow to bind a controller function to a HTTP path
+     * @param {ROUTER_METHODS} method HTTP method
+     * @param {string} path HTTP path
+     * @param {string} key Wanted controller IOC key
+     * @param {string} action Handler function to use, defaults to method
+     */
     bind(
         method: ROUTER_METHODS,
         path: string,
@@ -23,6 +30,9 @@ class BaseRouter {
     }
 }
 
+/**
+ * Enum for Router Methods
+ */
 export enum ROUTER_METHODS {
     GET = "get",
     POST = "post",
