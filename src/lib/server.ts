@@ -1,3 +1,4 @@
+import BaseRouter from "@/routers/BaseRouter";
 import { bodyParser } from "@koa/bodyparser";
 import Koa from "koa";
 import KoaLogger from "koa-logger";
@@ -14,10 +15,10 @@ class Server extends Koa {
         this._container = options.container;
         this._port = options.port;
 
-        options.routers.forEach(async (key: string) => {
-            const router = await this._container.get(key);
-            this.use(router.routes());
-            this.use(router.allowedMethods());
+        options.routers.forEach(async (router: any) => {
+            const resolvedRouter: BaseRouter = await router(this._container);
+            this.use(resolvedRouter.router.routes());
+            this.use(resolvedRouter.router.allowedMethods());
         });
     }
 

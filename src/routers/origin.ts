@@ -1,20 +1,12 @@
-import Router from "koa-router";
-import Controller from "../types/Controller";
+import Container from "../lib/container";
+import BaseRouter, { ROUTER_METHODS } from "./BaseRouter";
 
-class Origin extends Router {
-    static key = "router/origin";
-    private controller: Controller;
-    constructor(deps: { controller: Controller }) {
-        super();
-        this.controller = deps.controller;
+const OriginRouter: (container: Container) => BaseRouter = (container) => {
+    const router = new BaseRouter(container);
+    router.bind(ROUTER_METHODS.GET, "/", "controllers/logger");
 
-        this.get("/", (ctx) => {
-            this.controller.execute();
-            ctx.status = 200;
-            ctx.body = { Hello: "world" };
-        });
-    }
-}
+    return router;
+};
 
-export default Origin;
+export default OriginRouter;
 

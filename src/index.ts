@@ -6,11 +6,10 @@ import routers from "./routers";
 const server = new Server({
     container: new Container(definitions),
     port: 3000,
-    routers: routers.map((r) => {
-        if (!r.key) throw new Error(`Missing key in router ${r.name}`);
-        return r.key;
-    }),
+    routers: routers,
 });
+
+export const container = server.container;
 
 server.listen();
 

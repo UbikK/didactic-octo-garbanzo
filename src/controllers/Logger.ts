@@ -1,9 +1,10 @@
-import AbstractController from "./Controller.abstract";
+import { Context } from "koa";
 
-class Logger extends AbstractController {
-    static key = "controllers/logger";
-    execute = function () {
+class Logger {
+    get = function (ctx: Context) {
         console.info("coucou");
+        ctx.body = { hello: "world" };
+        ctx.status = 200;
     };
 }
 
