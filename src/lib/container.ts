@@ -1,13 +1,32 @@
 import IContainer from "../types/Container";
 import Definition from "../types/Definition";
+import { DEFINITION_TYPE } from "./constants";
 
 class Container implements IContainer {
+    private singletons: { key: string; instance: any }[];
     constructor(private definitions: Record<string, Definition>) {
         console.info("building container");
+        this.singletons = [];
     }
 
     async get(ref: string): Promise<any> {
         const def = this.definitions[ref];
+
+        if (def.type === DEFINITION_TYPE.SINGLETON) {
+            const single = this.singletons.find((s) => s.key === ref);
+            if (single) return single.instance;
+
+            const instance = await this.instanciate(ref, def);
+
+            return instance;
+        }
+
+        const instance = await this.instanciate(ref, def);
+
+        return instance;
+    }
+
+    private async instanciate(ref: string, def: Definition) {
         let resolvedDeps: any[] = [];
 
         if (def.dependencies) {
@@ -20,8 +39,9 @@ class Container implements IContainer {
         }
 
         const imported = await this.definitions[ref].resolve();
-
-        return new imported.default(...resolvedDeps);
+        const instance = new imported.default(...resolvedDeps);
+        this.singletons.push({ key: ref, instance });
+        return instance;
     }
 
     register(ref: string, definition: Definition) {
