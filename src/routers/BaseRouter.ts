@@ -24,6 +24,7 @@ class BaseRouter {
         key: string,
         action?: string
     ): void {
+        console.debug("🚀 ~ BaseRouter ~ action:", action);
         this._router[method](path, async (ctx) =>
             (await this.container.get(key))[action ?? method](ctx)
         );

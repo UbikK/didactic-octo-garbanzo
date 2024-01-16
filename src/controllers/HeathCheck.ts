@@ -1,12 +1,10 @@
-import Controller from "@/types/Controller";
 import { Context } from "koa";
 
-class HeathCheckController implements Controller {
-    get = function (ctx: Context) {
-        console.info("coucou");
+class HeathCheckController {
+    get(ctx: Context) {
         ctx.body = "OK";
         ctx.status = 200;
-    };
+    }
 }
 
 export default HeathCheckController;
