@@ -11,9 +11,14 @@ class BaseRouter {
         return this._router;
     }
 
-    bind(method: ROUTER_METHODS, path: string, key: string): void {
+    bind(
+        method: ROUTER_METHODS,
+        path: string,
+        key: string,
+        action?: string
+    ): void {
         this._router[method](path, async (ctx) =>
-            (await this.container.get(key))[method](ctx)
+            (await this.container.get(key))[action ?? method](ctx)
         );
     }
 }

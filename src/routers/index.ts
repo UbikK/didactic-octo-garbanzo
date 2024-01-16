@@ -1,3 +1,4 @@
-import Origin from "./origin";
+import HeathCheckRouter from "./heathcheck";
 
-export default [Origin];
+export default [HeathCheckRouter];
+

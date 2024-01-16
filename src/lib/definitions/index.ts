@@ -1,10 +1,8 @@
 import Definition from "../../types/Definition";
-import logger from "./_parts/logger";
-import OriginDefinition from "./_parts/origin";
+import HeathCheckDefinition from "./_parts/healthcheck";
 
 const definitions: Record<string, Definition> = {
-    "controllers/logger": logger,
-    "router/origin": OriginDefinition,
+    "controllers/heathcheck": HeathCheckDefinition,
 };
 
 export default definitions;
