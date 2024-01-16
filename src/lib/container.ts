@@ -8,7 +8,6 @@ class Container implements IContainer {
 
     async get(ref: string): Promise<any> {
         const def = this.definitions[ref];
-        // let resolvedDeps: Record<string, any> = {};
         let resolvedDeps: any[] = [];
 
         if (def.dependencies) {
@@ -18,10 +17,6 @@ class Container implements IContainer {
                     return await this.get(def.dependencies[key]);
                 })
             );
-            // resolvedDeps = await keys.reduce(async (prev, dep) => {
-            //     prev[dep.split("/")[0]] = await this.get(def.dependencies[dep]);
-            //     return prev;
-            // }, {} as Record<string, any>);
         }
 
         const imported = await this.definitions[ref].resolve();
